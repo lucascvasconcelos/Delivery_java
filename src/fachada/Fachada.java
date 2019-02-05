@@ -40,9 +40,14 @@ public class Fachada {
 	
 	public static Produto cadastrarProduto(String nome, double preco) {
 		Produto p = new Produto(nome, preco);
-		restaurante.adicionar(p);
+		restaurante.getProdutos().add(p);
 		return p;
 	}
 	
+	public static Cliente cadastrarCliente(String nome, String telefone) {
+		Cliente c = new Cliente(telefone, nome);
+		restaurante.getClientes().add(c);
+		return c;
+	}
 	
 }

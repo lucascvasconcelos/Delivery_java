@@ -11,9 +11,6 @@ public class Restaurante {
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	
-	public void adicionar(Produto p){
-		produtos.add(p);
-	}
 	
 	public ArrayList<Produto> getProdutos() {
 		return produtos;
