@@ -39,7 +39,7 @@ public class Fachada {
 	}
 	
 	public static Produto cadastrarProduto(String nome, double preco) {
-		p = new Produto(nome, preco);
+		Produto p = new Produto(nome, preco);
 		restaurante.adicionar(p);
 		return p;
 	}
