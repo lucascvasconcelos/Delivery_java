@@ -15,4 +15,12 @@ public class Pedido {
 		super();
 		this.id = id;
 	}
+	
+	public ArrayList<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(ArrayList<Produto> produtos) {
+		this.produtos = produtos;
+	}
 }

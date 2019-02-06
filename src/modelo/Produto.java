@@ -9,8 +9,9 @@ public class Produto {
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	//CONSTRUTOR
-	public Produto(String nome, double preço) {
+	public Produto(int id, String nome, double preço) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.preço = preço;
 	}

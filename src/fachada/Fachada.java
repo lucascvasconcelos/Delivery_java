@@ -9,6 +9,7 @@ import repositorio.Restaurante;
 public class Fachada {
 	private static Restaurante restaurante = new Restaurante();
 	private static int idpedido=0;	//autoincremento
+	private static int idproduto=0;	//autoincremento
 
 	public static ArrayList<Produto> listarProdutos(String nome) {
 		ArrayList<Produto> produtosListagem = new ArrayList<Produto>();
@@ -40,7 +41,8 @@ public class Fachada {
 	}
 	
 	public static Produto cadastrarProduto(String nome, double preco) {
-		Produto p = new Produto(nome, preco);
+		idproduto ++;
+		Produto p = new Produto(idproduto, nome, preco);
 		restaurante.getProdutos().add(p);
 		return p;
 	}
@@ -61,6 +63,34 @@ public class Fachada {
 			}
 		}
 		return null;
+	}
+	
+	public static void adicionarProdutoPedido(String telefone_cliente, int id_produto) {
+		for (Cliente c : restaurante.getClientes()) {
+			if(c.getTelefone().equals(telefone_cliente)) {
+				for (Pedido p: c.getPedidos()) {
+					for(Produto pro : p.getProdutos()) {
+						if (pro.getId() == id_produto) {
+							p.getProdutos().add(pro);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public static void removerProdutoPedido(String telefone_cliente, int id_produto) {
+		for (Cliente c : restaurante.getClientes()) {
+			if(c.getTelefone().equals(telefone_cliente)) {
+				for (Pedido p: c.getPedidos()) {
+					for(Produto pro : p.getProdutos()) {
+						if (pro.getId() == id_produto) {
+							p.getProdutos().remove(pro);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 }
