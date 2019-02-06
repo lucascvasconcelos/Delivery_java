@@ -80,25 +80,21 @@ public class Fachada {
 	}
 	
 	
-	public static void removerProdutoPedido(String telefone_cliente, int id_produto) {
-		for (Cliente c : restaurante.getClientes()) {
-			if(c.getTelefone().equals(telefone_cliente)) {
-				for (Pedido p: c.getPedidos()) {
-					for(Produto pro : p.getProdutos()) {
-						if (pro.getId() == id_produto) {
-							p.getProdutos().remove(pro);
-						}
-					}
-				}
-			}
-		}
-	}
-	
 	public static void adicionarProdutoPedido(String telefone_cliente, int id_produto) {
 		for (Pedido p: Fachada.listarPedidos(telefone_cliente)) {
 			for (Produto prod : p.getProdutos()) {
 				if (prod.getId() == id_produto) 
 					p.getProdutos().add(prod);
+			}
+		}
+
+	}
+	
+	public static void removerProdutoPedido(String telefone_cliente, int id_produto) {
+		for (Pedido p: Fachada.listarPedidos(telefone_cliente)) {
+			for (Produto prod : p.getProdutos()) {
+				if (prod.getId() == id_produto) 
+					p.getProdutos().remove(prod);
 			}
 		}
 
