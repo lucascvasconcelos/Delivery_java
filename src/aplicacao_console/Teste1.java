@@ -1,6 +1,8 @@
 package aplicacao_console;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import fachada.Fachada;
 import modelo.*;
 import repositorio.Restaurante;

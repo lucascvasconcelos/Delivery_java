@@ -59,10 +59,8 @@ public class Fachada {
 		return null;
 	}
 	
-	public static Cliente cadastrarCliente(String nome, String telefone) {
-		
-		
-		Cliente c = new Cliente(telefone, nome);
+	public static Cliente cadastrarCliente(String nome, String telefone, String email, String endereco) {
+		Cliente c = new Cliente(telefone, nome, email, endereco);
 		restaurante.getClientes().add(c);
 		return c;
 	}

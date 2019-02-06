@@ -10,13 +10,16 @@ public class Cliente {
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	//CONSTRUTOR DA CLASSE
-	public Cliente(String telefone, String nome) {
+
+	public Cliente(String telefone, String nome, String email, String endereco) {
 		super();
 		this.telefone = telefone;
 		this.nome = nome;
+		this.email = email;
+		this.endereco = endereco;
 	}
 
-	//MÉTODOS ESPECIAIS
+	//Mï¿½TODOS ESPECIAIS
 	public String getTelefone() {
 		return telefone;
 	}
