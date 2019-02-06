@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Produto {
 	private int id;
 	private String nome;
-	private double preço;
+	private double preco;
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	//CONSTRUTOR
-	public Produto(int id, String nome, double preço) {
+	public Produto(int id, String nome, double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preço = preço;
+		this.preco = preco;
 	}
 	
-	//MÉTODOS ESPECIAIS
+	//Mï¿½TODOS ESPECIAIS
 	public int getId() {
 		return id;
 	}
@@ -33,12 +33,12 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public double getPreço() {
-		return preço;
+	public double getpreco() {
+		return preco;
 	}
 
-	public void setPreço(double preço) {
-		this.preço = preço;
+	public void setpreco(double preco) {
+		this.preco = preco;
 	}
 
 }

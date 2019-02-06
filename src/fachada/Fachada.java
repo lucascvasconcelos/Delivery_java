@@ -40,14 +40,28 @@ public class Fachada {
 		return null;
 	}
 	
-	public static Produto cadastrarProduto(String nome, double preco) {
+	public static Produto cadastrarProduto(String nome, double preco)throws Exception {
+		Produto p = Fachada.findProduto(nome);
+		if (p != null) {
+			throw new Exception("Produto já cadastrado");
+		}
 		idproduto ++;
-		Produto p = new Produto(idproduto, nome, preco);
+		p = new Produto(idproduto, nome, preco);
 		restaurante.getProdutos().add(p);
 		return p;
 	}
 	
+	public static Produto findProduto(String nome) {
+		for (Produto p : restaurante.getProdutos()) {
+			if(p.getNome().equals(nome)) 
+				return p;
+		}
+		return null;
+	}
+	
 	public static Cliente cadastrarCliente(String nome, String telefone) {
+		
+		
 		Cliente c = new Cliente(telefone, nome);
 		restaurante.getClientes().add(c);
 		return c;
@@ -65,19 +79,6 @@ public class Fachada {
 		return null;
 	}
 	
-	public static void adicionarProdutoPedido(String telefone_cliente, int id_produto) {
-		for (Cliente c : restaurante.getClientes()) {
-			if(c.getTelefone().equals(telefone_cliente)) {
-				for (Pedido p: c.getPedidos()) {
-					for(Produto pro : p.getProdutos()) {
-						if (pro.getId() == id_produto) {
-							p.getProdutos().add(pro);
-						}
-					}
-				}
-			}
-		}
-	}
 	
 	public static void removerProdutoPedido(String telefone_cliente, int id_produto) {
 		for (Cliente c : restaurante.getClientes()) {
@@ -93,4 +94,14 @@ public class Fachada {
 		}
 	}
 	
+	public static void adicionarProdutoPedido(String telefone_cliente, int id_produto) {
+		for (Pedido p: Fachada.listarPedidos(telefone_cliente)) {
+			for (Produto prod : p.getProdutos()) {
+				if (prod.getId() == id_produto) 
+					p.getProdutos().add(prod);
+			}
+		}
+
+	}
+
 }
