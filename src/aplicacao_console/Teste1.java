@@ -1,4 +1,9 @@
+package aplicacao_console;
+
 import java.time.LocalDate;
+import fachada.Fachada;
+import modelo.*;
+import repositorio.Restaurante;
 
 public class Teste1 {
 	
