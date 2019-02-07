@@ -68,7 +68,7 @@ public class Fachada {
 		return null;
 	}
 	
-	public static Cliente cadastrarCliente(String nome, String telefone, String email, String endereco) {
+	public static Cliente cadastrarCliente(String telefone, String nome, String email, String endereco) {
 		Cliente c = new Cliente(telefone, nome, email, endereco);
 		restaurante.getClientes().add(c);
 		return c;
@@ -83,14 +83,15 @@ public class Fachada {
 			throw new Exception("Nao existe cliente com esse telefone!");
 		}
 		Pedido pedido = c.pedidoAberto();
-		if(pedido==null)
-			throw new Exception("Já existe um pedido aberto!!");
+		if(pedido!=null)
+			throw new Exception("Ja existe um pedido aberto para esse telefone!!");
 		
 		idpedido++;
-		Pedido p = new Pedido(idpedido);
-		p.setFechado(false);
-		restaurante.getPedidos().add(p);
-		return p;
+		pedido = new Pedido(idpedido);
+		pedido.setFechado(false);
+		c.getPedidos().add(pedido);
+//		restaurante.getPedidos().add(pedido);
+		return pedido;
 	}
 	
 	
@@ -128,12 +129,20 @@ public class Fachada {
 		}
 		Pedido p = c.pedidoAberto();
 		if(p==null) {
-				throw new Exception("O cliente não tem pedido aberto!");
+				throw new Exception("O cliente nao tem pedido aberto!");
 		}
-		if(p.getProdutos().isEmpty()) {
-			throw new Exception("Nao existe produtos nesse pedido!");
-		}
+//		if(p.getProdutos().isEmpty()) {
+//			throw new Exception("Nao existe produtos nesse pedido!");
+//		}
 		return p;
+	}
+	
+	public static void cancelarPedido(String telefone_cliente) {
+		
+	}
+	
+	public static void fecharPedido(String telefone_cliente,String  nome_entregador) {
+		
 	}
 	
 

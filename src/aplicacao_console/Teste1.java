@@ -21,12 +21,12 @@ public class Teste1 {
 	public static void parte1 () {		
 		
 		try {
-//			Cliente joao = Fachada.cadastrarCliente("98745-0643", "joao", "joao@gmail.com",
-//					"Rua dos Tronos, 3");
-//			System.out.println("cadastrou cliente="+joao.getNome());
-//			Cliente maria = Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com",
-//					"Rua da Justiça, 12");			
-//			System.out.println("cadastrou cliente="+maria.getNome());
+			Cliente joao = Fachada.cadastrarCliente("98745-0643", "joao", "joao@gmail.com",
+					"Rua dos Tronos, 3");
+			System.out.println("cadastrou cliente="+joao.getNome());
+			Cliente maria = Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com",
+					"Rua da Justiça, 12");			
+			System.out.println("cadastrou cliente="+maria.getNome());
 	
 			Produto pizza = Fachada.cadastrarProduto("Pizza", 30);
 			System.out.println("cadastrou produto="+pizza.getNome());
@@ -45,7 +45,7 @@ public class Teste1 {
 //			
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98745-0643"));
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98820-0222"));
-//			
+			
 //			System.out.println("\n adicao dos produtos ao Pedido");			
 //			Fachada.adicionarProdutoPedido("98745-0643", 1);
 //			Fachada.adicionarProdutoPedido("98745-0643", 1);
@@ -145,7 +145,8 @@ public class Teste1 {
 //			System.out.println("*************FALHA2: cliente ja cadastrado"); 
 //		}catch (Exception e) {System.out.println("2--->"+e.getMessage());}
 		try {
-			Pedido p = Fachada.abrirPedido("98820-0000");
+//			Pedido p = 
+					Fachada.abrirPedido("98820-0000");
 			System.out.println("*************FALHA3: nao pode abrir pedido de cliente inexistente"); 
 		}catch (Exception e) {System.out.println("3--->"+e.getMessage());}
 //		try {
