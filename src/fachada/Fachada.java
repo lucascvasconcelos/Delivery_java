@@ -90,7 +90,8 @@ public class Fachada {
 		pedido = new Pedido(idpedido);
 		pedido.setFechado(false);
 		c.getPedidos().add(pedido);
-//		restaurante.getPedidos().add(pedido);
+    	restaurante.getPedidos().add(pedido);
+    	pedido.setCliente(c);
 		return pedido;
 	}
 	

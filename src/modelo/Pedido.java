@@ -24,6 +24,10 @@ public class Pedido {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public boolean isFechado() {
 		return fechado;
