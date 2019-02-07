@@ -9,6 +9,7 @@ public class Pedido {
 	private double total;
 	private String entregador;
 	private boolean fechado;
+	private Cliente cliente;
 	private ArrayList<Produto> produtos = new ArrayList<Produto>();
 	
 	public Pedido(int id) {
@@ -16,6 +17,22 @@ public class Pedido {
 		this.id = id;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public boolean isFechado() {
+		return fechado;
+	}
+
+	public void setFechado(boolean fechado) {
+		this.fechado = fechado;
+	}
+
 	public ArrayList<Produto> getProdutos() {
 		return produtos;
 	}
@@ -23,4 +40,13 @@ public class Pedido {
 	public void setProdutos(ArrayList<Produto> produtos) {
 		this.produtos = produtos;
 	}
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", data=" + data + ", total=" + total + ", entregador=" + entregador + ", fechado="
+				+ fechado + ", cliente=" + cliente.getNome() + ", produtos=" + produtos + "]";
+	}
+
+	
+
 }

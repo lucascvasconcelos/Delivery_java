@@ -60,5 +60,12 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
+	public Pedido pedidoAberto() {
+		for(Pedido p : pedidos){
+			if(p.isFechado()==false)
+				return p;
+		}
+		return null;
+	}
 	
 }

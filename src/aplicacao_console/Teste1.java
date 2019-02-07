@@ -37,14 +37,14 @@ public class Teste1 {
 			Produto guarana = Fachada.cadastrarProduto("Guarana", 5);	
 			System.out.println("cadastrou produto="+guarana.getNome());		
 //			
-//			System.out.println("\nAbrir pedidos");			
-//			Pedido pedido1 = Fachada.abrirPedido("98745-0643");
-//			System.out.println("abrir pedido ="+pedido1.getId());
-//			Pedido pedido2 = Fachada.abrirPedido("98820-0222");
-//			System.out.println("abrir pedido ="+pedido2.getId());
+			System.out.println("\nAbrir pedidos");			
+			Pedido pedido1 = Fachada.abrirPedido("98745-0643");
+			System.out.println("abrir pedido ="+pedido1.getId());
+			Pedido pedido2 = Fachada.abrirPedido("98820-0222");
+			System.out.println("abrir pedido ="+pedido2.getId());
 //			
-//			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98745-0643"));
-//			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98820-0222"));
+			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98745-0643"));
+			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98820-0222"));
 //			
 //			System.out.println("\n adicao dos produtos ao Pedido");			
 //			Fachada.adicionarProdutoPedido("98745-0643", 1);
@@ -138,16 +138,16 @@ public class Teste1 {
 		}catch (Exception e) {
 			System.out.println("1--->"+e.getMessage());
 		}
-	}
+	
 //		try {
 //			Cliente c = Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com",
 //					"Rua da Justiça, 12");			
 //			System.out.println("*************FALHA2: cliente ja cadastrado"); 
 //		}catch (Exception e) {System.out.println("2--->"+e.getMessage());}
-//		try {
-//			Pedido p = Fachada.abrirPedido("98820-0000");
-//			System.out.println("*************FALHA3: nao pode abrir pedido de cliente inexistente"); 
-//		}catch (Exception e) {System.out.println("3--->"+e.getMessage());}
+		try {
+			Pedido p = Fachada.abrirPedido("98820-0000");
+			System.out.println("*************FALHA3: nao pode abrir pedido de cliente inexistente"); 
+		}catch (Exception e) {System.out.println("3--->"+e.getMessage());}
 //		try {
 //			Pedido p = Fachada.abrirPedido("98820-0222");	//ok
 //			Fachada.adicionarProdutoPedido("98820-0222",99);	
@@ -164,4 +164,4 @@ public class Teste1 {
 //			System.out.println("*************FALHA6: nao pode cancelar pedido fechado"); 
 //		}catch (Exception e) {System.out.println("6--->"+e.getMessage());}
 	
-}
+}}
