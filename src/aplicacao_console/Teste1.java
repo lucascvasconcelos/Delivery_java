@@ -56,15 +56,19 @@ public class Teste1 {
 //
 			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
 			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
-//	
+			System.out.println("pedido = " + Fachada.listarPedidos());
 			System.out.println("\n Fechando pedidos");				
 			Fachada.fecharPedido("98745-0643", "entregadorX");
 			Fachada.fecharPedido("98820-0222", "entregadorX");
-			//Fachada.enviarPedido("98745-0643", "senha");
-			//Fachada.enviarPedido("98820-0222", "senha");
-
-			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
-			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
+			Fachada.enviarPedido("98745-0643", "lucascvasconcelos2@gmail.com");
+			Fachada.enviarPedido("98820-0222", "lucascvasconcelos2@gmail.com");
+			try {
+				System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
+				System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
 			
 			System.out.println("\nAbrir novo pedido");			
 			Pedido pedido3 = Fachada.abrirPedido("98745-0643");
@@ -73,8 +77,11 @@ public class Teste1 {
 
 			System.out.println("\nCancelar pedido:");
 			Fachada.cancelarPedido("98745-0643");
-			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
-		
+			try {
+				System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 			
 			System.out.println("\nArrecadacao diaria");
 			System.out.println("arrecadacao = " + Fachada.calcularArrecadacao(LocalDate.now().getDayOfMonth()));
@@ -141,11 +148,11 @@ public class Teste1 {
 			System.out.println("1--->"+e.getMessage());
 		}
 	
-//		try {
-//			Cliente c = Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com",
-//					"Rua da Justiça, 12");			
-//			System.out.println("*************FALHA2: cliente ja cadastrado"); 
-//		}catch (Exception e) {System.out.println("2--->"+e.getMessage());}
+		try {
+			Cliente c = Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com",
+					"Rua da Justiça, 12");			
+			System.out.println("*************FALHA2: cliente ja cadastrado"); 
+		}catch (Exception e) {System.out.println("2--->"+e.getMessage());}
 		try {Pedido p = Fachada.abrirPedido("98820-0000");
 			System.out.println("*************FALHA3: nao pode abrir pedido de cliente inexistente"); 
 		}catch (Exception e) {System.out.println("3--->"+e.getMessage());}

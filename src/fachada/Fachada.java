@@ -1,6 +1,36 @@
 package fachada;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeMessage.RecipientType;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import modelo.Cliente;
 import modelo.Pedido;
 import modelo.Produto;
@@ -68,7 +98,11 @@ public class Fachada {
 		return null;
 	}
 	
-	public static Cliente cadastrarCliente(String telefone, String nome, String email, String endereco) {
+	public static Cliente cadastrarCliente(String telefone, String nome, String email, String endereco) throws Exception{
+		for(Cliente c: Fachada.restaurante.getClientes()) {
+			if (c.getTelefone().equals(telefone))
+				throw new Exception("Cliente já cadastrado com esse numero");
+		}
 		Cliente c = new Cliente(telefone, nome, email, endereco);
 		restaurante.getClientes().add(c);
 		return c;
@@ -196,6 +230,105 @@ public class Fachada {
 		return soma;
 	}
 	
+	public static void enviarPedido(String telefone, String email) throws MessagingException {
+		Document document = new Document();
+		Cliente cli = Fachada.localizarCliente(telefone);
+		Pedido ultimoPedido = cli.getUltimoPedido(); 
+		
+		final String emailEnvio = "lucascvasconcelos2@gmail.com";
+		final String senha = "luc09870";
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "true");
+		
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(emailEnvio, senha);
+			}
+		});
+
+		
+		try {
+			//Instanciando o documento PDF
+			PdfWriter.getInstance(document, new FileOutputStream("pdf//teste.pdf"));
+			document.setPageSize(PageSize.A6);
+			//Adicionando um titulo ao arquivo
+			document.addSubject("Testando criação de PDF em Java com api Itext");
+			//setando o criador do arquivo
+			document.addCreator("iText");
+			//setando o autor do arquivo criado
+			document.addAuthor("Restaurane Ifoof");
+			//Abrindo o documento PDF criado
+			document.open();
+			
+			// adicionando um parágrafo ao documento
+			document.add(new Paragraph(ultimoPedido.toString()));
+			document.close();
+			//Se arquivo for criado com sucesso, é exibida uma mensagem de confirmação
+			System.out.println("PDF criado com sucesso!");
+			//criando a mensagem
+			MimeMessage msg = new MimeMessage(session);
+
+			//inserir os emails 
+			Address from = new InternetAddress(emailEnvio);
+			Address to = new InternetAddress(email);
+
+			//configurando o remetente e o destinatario
+			msg.setFrom(from);
+			msg.addRecipient(RecipientType.TO, to);
+
+			//configurando a data de envio,  o assunto e o texto da mensagem
+			msg.setSentDate(new Date());
+			msg.setSubject("Enviando Email com mensagem e anexo");		
+			msg.setSubject("Email com último pedido realizado: " );
+			msg.setText("exemplo de email");
+			msg.setHeader("XPriority", "1");
+			
+			// conteudo html que sera atribuido a mensagem
+			String htmlMessage = "<html> Email com anexo </html>";
+			//criando a Multipart
+			Multipart multipart = new MimeMultipart();
+			//criando a primeira parte da mensagem
+			MimeBodyPart attachment0 = new MimeBodyPart();
+			//configurando o htmlMessage com o mime type
+			attachment0.setContent(htmlMessage,"text/html; charset=UTF-8");
+			//adicionando na multipart
+			multipart.addBodyPart(attachment0);
+			//arquivo que será anexado
+			String pathname = "pdf/teste.pdf";
+			
+			File file = new File(pathname);
+			//criando a segunda parte da mensagem
+			MimeBodyPart attachment1 = new MimeBodyPart();  
+			attachment1.setDataHandler(new DataHandler(new FileDataSource(file)));
+			
+			attachment1.setFileName(file.getName());
+			
+			multipart.addBodyPart(attachment1);
+
+			msg.setContent(multipart);
+			
+			Transport.send(msg);
+			
+			System.out.println("Email enviado com sucesso!");
+		} catch (MessagingException mex) {
+			System.out.println("problema no envio" + mex);
+		}
+		catch(DocumentException de) {         
+			System.out.println(de.getMessage());
+		}
+		catch(IOException ioe) {
+			System.out.println(ioe.getMessage());
+		}
+		document.close();
+		
+
+
+	}
 		
 
 }

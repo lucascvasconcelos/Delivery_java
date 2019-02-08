@@ -68,4 +68,9 @@ public class Cliente {
 		return null;
 	}
 	
+	public Pedido getUltimoPedido() {
+		if (this.getPedidos().size() <= 0)
+			return null;
+		return this.getPedidos().get(this.getPedidos().size() - 1);
+	}
 }

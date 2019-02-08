@@ -2,5 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="Z:/20151370367/Downloads/Delivery_java/lib/itextpdf-5.5.9.jar"/>
+	<classpathentry kind="lib" path="Z:/20151370367/Downloads/Delivery_java/lib/javax.mail (4).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
