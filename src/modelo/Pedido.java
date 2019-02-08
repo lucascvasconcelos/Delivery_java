@@ -14,9 +14,18 @@ public class Pedido {
 	
 	public Pedido(int id) {
 		super();
+		data = LocalDateTime.now();
 		this.id = id;
 	}
 	
+	public LocalDateTime getData() {
+		return data;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+
 	public String getEntregador() {
 		return entregador;
 	}

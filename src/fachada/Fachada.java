@@ -95,31 +95,45 @@ public class Fachada {
 		return pedido;
 	}
 	
+	public static Produto localizarProduto(int id_produto) {
+		for(Produto p : restaurante.getProdutos()) {
+			if(p.getId() == id_produto) {
+				return p;
+			}
+		}
+		return null;
+	}
 	
 	public static void adicionarProdutoPedido(String telefone_cliente, int id_produto) throws Exception {
 		Cliente c = Fachada.localizarCliente(telefone_cliente);
-		if(telefone_cliente.equals("")) {
+		Produto p = Fachada.localizarProduto(id_produto);
+		Pedido ped = c.verificarPedidoAberto();
+		if(ped == null)
+			throw new Exception("Não existe pedido aberto");
+		if(p == null)
+			throw new Exception("O produto nao existe");
+		if(telefone_cliente.equals("")) 
 			throw new Exception("Telefone invalido!");
-		}
-		if(c==null) {
+		if(c==null)
 			throw new Exception("Nao existe cliente com esse telefone!");
-		}
-		for (Pedido p: Fachada.listarPedidos(telefone_cliente)) {
-			for (Produto prod : p.getProdutos()) {
-				if (prod.getId() == id_produto) 
-					p.getProdutos().add(prod);
-			}
-		}
-
+		
+		ped.getProdutos().add(p);	
 	}
 	
-	public static void removerProdutoPedido(String telefone_cliente, int id_produto) {
-		for (Pedido p: Fachada.listarPedidos(telefone_cliente)) {
-			for (Produto prod : p.getProdutos()) {
-				if (prod.getId() == id_produto) 
-					p.getProdutos().remove(prod);
-			}
-		}
+	public static void removerProdutoPedido(String telefone_cliente, int id_produto)throws Exception{
+		Cliente c = Fachada.localizarCliente(telefone_cliente);
+		if(c==null)
+			throw new Exception("Nao existe cliente com esse telefone!");
+		Produto p = Fachada.localizarProduto(id_produto);
+		
+		if(p == null)
+			throw new Exception("O produto nao existe");
+		
+		Pedido ped = c.verificarPedidoAberto();
+		if(ped == null)
+			throw new Exception("Não existe pedido aberto");
+		
+		ped.getProdutos().remove(p);
 
 	}
 	
@@ -130,7 +144,7 @@ public class Fachada {
 		}
 		Pedido p = c.verificarPedidoAberto();
 		if(p==null) {
-				throw new Exception("O cliente nao tem pedido aberto!");
+			throw new Exception("O cliente nao tem pedido aberto!");
 		}
 		return p;
 	}
@@ -155,6 +169,33 @@ public class Fachada {
 		
 	}
 	
-
+	public static void fecharPedido(String telefone_cliente, String nome_entregador)throws Exception{
+		Cliente c = Fachada.localizarCliente(telefone_cliente);
+		if(c == null || telefone_cliente.equals("")) {
+			throw new Exception("Nao existe cliente com esse numero!");
+		}
+		Pedido p = c.verificarPedidoAberto();
+		if(p==null) {
+			throw new Exception("O cliente nao tem pedido aberto!");
+		}
+		p.setEntregador(nome_entregador);
+		p.setFechado(true);
+	}
+	
+	public static double calcularArrecadacao(int dia) {
+		ArrayList<Pedido> pedidosFechados = new ArrayList<Pedido>();
+		for(Pedido p : Fachada.listarPedidos()) 
+			if(p.isFechado() && p.getData().getDayOfMonth() == dia)
+				pedidosFechados.add(p);
+		
+		int soma = 0;
+		for (Pedido p: pedidosFechados) 
+			for (Produto prod: p.getProdutos()) 
+				soma+=prod.getpreco();
+		
+		return soma;
+	}
+	
+		
 
 }

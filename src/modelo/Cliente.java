@@ -62,7 +62,7 @@ public class Cliente {
 
 	public Pedido verificarPedidoAberto() {
 		for(Pedido p : pedidos){
-			if(p.isFechado()==false)
+			if(!p.isFechado())
 				return p;
 		}
 		return null;
