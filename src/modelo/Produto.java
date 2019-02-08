@@ -41,4 +41,13 @@ public class Produto {
 		this.preco = preco;
 	}
 
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(ArrayList<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+
 }

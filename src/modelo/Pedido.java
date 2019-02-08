@@ -17,6 +17,14 @@ public class Pedido {
 		this.id = id;
 	}
 	
+	public String getEntregador() {
+		return entregador;
+	}
+
+	public void setEntregador(String entregador) {
+		this.entregador = entregador;
+	}
+
 	public int getId() {
 		return id;
 	}

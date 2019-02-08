@@ -46,16 +46,16 @@ public class Teste1 {
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98745-0643"));
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98820-0222"));
 			
-//			System.out.println("\n adicao dos produtos ao Pedido");			
-//			Fachada.adicionarProdutoPedido("98745-0643", 1);
-//			Fachada.adicionarProdutoPedido("98745-0643", 1);
-//			Fachada.adicionarProdutoPedido("98745-0643", 3);			
-//			Fachada.adicionarProdutoPedido("98820-0222", 2);	
-//			Fachada.adicionarProdutoPedido("98820-0222", 4);	
-//			Fachada.removerProdutoPedido("98820-0222", 4);	
+			System.out.println("\n adicao dos produtos ao Pedido");			
+			Fachada.adicionarProdutoPedido("98745-0643", 1);
+			Fachada.adicionarProdutoPedido("98745-0643", 1);
+			Fachada.adicionarProdutoPedido("98745-0643", 3);			
+			Fachada.adicionarProdutoPedido("98820-0222", 2);	
+			Fachada.adicionarProdutoPedido("98820-0222", 4);	
+			Fachada.removerProdutoPedido("98820-0222", 4);	
 //
-//			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
-//			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
+			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
+			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
 //	
 //			System.out.println("\n Fechando pedidos");				
 //			Fachada.fecharPedido("98745-0643", "entregadorX");
@@ -156,11 +156,11 @@ public class Teste1 {
 //			Fachada.adicionarProdutoPedido("98820-0222",99);	
 //			System.out.println("*************FALHA4: nao pode adicionar produto inexistente"); 
 //		}catch (Exception e) {System.out.println("4--->"+e.getMessage());}
-//		try {
-//			Fachada.adicionarProdutoPedido("98820-0222",2);	//ok
-//			Pedido p = Fachada.abrirPedido("98820-0222");
-//			System.out.println("*************FALHA5: nao pode abrir pedido ja aberto"); 
-//		}catch (Exception e) {System.out.println("5--->"+e.getMessage());}
+		try {
+			Fachada.adicionarProdutoPedido("98820-0222",2);	//ok
+			Pedido p = Fachada.abrirPedido("98820-0222");
+			System.out.println("*************FALHA5: nao pode abrir pedido ja aberto"); 
+		}catch (Exception e) {System.out.println("5--->"+e.getMessage());}
 //		try {
 //			Fachada.fecharPedido("98820-0222");	//ok
 //			Fachada.cancelarPedido("98820-0222");

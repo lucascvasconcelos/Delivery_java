@@ -60,7 +60,7 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
-	public Pedido pedidoAberto() {
+	public Pedido verificarPedidoAberto() {
 		for(Pedido p : pedidos){
 			if(p.isFechado()==false)
 				return p;
