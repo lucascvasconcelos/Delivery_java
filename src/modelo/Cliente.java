@@ -73,4 +73,10 @@ public class Cliente {
 			return null;
 		return this.getPedidos().get(this.getPedidos().size() - 1);
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [telefone=" + telefone + ", nome=" + nome + ", email=" + email + "\n" + ", endereco=" + endereco + ", quantidade=" + this.getPedidos().size() +"]";
+	}
+	
 }

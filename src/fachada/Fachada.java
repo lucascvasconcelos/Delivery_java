@@ -32,6 +32,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import modelo.Cliente;
+import modelo.Combo;
 import modelo.Pedido;
 import modelo.Produto;
 import repositorio.Restaurante;
@@ -325,10 +326,24 @@ public class Fachada {
 			System.out.println(ioe.getMessage());
 		}
 		document.close();
-		
-
 
 	}
-		
-
+	
+	public static void CriarCombo(String nome, ArrayList<Integer> ids)throws Exception {
+		int idcombo=0;
+		Produto combo = Fachada.findProduto(nome);
+		if(combo!=null) {
+			throw new Exception("Combo já existe!");
+		}
+		Combo c = new Combo(idcombo++,nome,0);
+		for(int id:ids) {
+			Produto p = Fachada.localizarProduto(id);
+			if(p==null) {
+				throw new Exception("Este id não foi localizado!");
+			}
+			c.adicionarProdutoCombo(p);
+			
+		}
+		restaurante.getProdutos().add(c);
+	}
 }
