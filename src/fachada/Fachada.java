@@ -39,13 +39,13 @@ public class Fachada {
 	private static int idproduto=0;	//autoincremento
 
 	public static ArrayList<Produto> listarProdutos(String nome) {
+		if(nome.equals("")){
+			return restaurante.getProdutos();
+		}
 		ArrayList<Produto> produtosListagem = new ArrayList<Produto>();
 		for (Produto p : restaurante.getProdutos()) {
 			if(p.getNome().contains(nome))
 				produtosListagem.add(p);
-		}
-		if (produtosListagem.isEmpty()){
-			return restaurante.getProdutos();
 		}
 		return produtosListagem;
 	}
