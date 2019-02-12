@@ -20,9 +20,9 @@ public class Combo extends Produto{
 	}
 	public double getpreco() {
 		for(Produto p: produtos) {
-			precoCombo = precoCombo + p.getpreco();
+			precoCombo += p.getpreco();
 		}
-		precoCombo = precoCombo - (precoCombo*0.1);
+		precoCombo -= (precoCombo*0.1);
 		return precoCombo;
 	}
 
