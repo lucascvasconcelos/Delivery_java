@@ -36,13 +36,13 @@ public class Teste1 {
 			System.out.println("cadastrou produto="+cocaCola.getNome()+cocaCola.getId());
 			Produto guarana = Fachada.cadastrarProduto("Guarana", 5);	
 			System.out.println("cadastrou produto="+guarana.getNome()+guarana.getId());		
-//			
+		
 			System.out.println("\nAbrir pedidos");			
 			Pedido pedido1 = Fachada.abrirPedido("98745-0643");
 			System.out.println("abrir pedido ="+pedido1.getId());
 			Pedido pedido2 = Fachada.abrirPedido("98820-0222");
 			System.out.println("abrir pedido ="+pedido2.getId());
-//			
+			
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98745-0643"));
 			System.out.println("\nconsultar pedido ="+ Fachada.consultarPedido("98820-0222"));
 			
@@ -53,7 +53,7 @@ public class Teste1 {
 			Fachada.adicionarProdutoPedido("98820-0222", 2);	
 			Fachada.adicionarProdutoPedido("98820-0222", 4);	
 			Fachada.removerProdutoPedido("98820-0222", 4);	
-//
+
 			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98745-0643"));
 			System.out.println("consultar pedido ="+ Fachada.consultarPedido("98820-0222"));
 			System.out.println("pedido = " + Fachada.listarPedidos());
@@ -172,4 +172,5 @@ public class Teste1 {
 			System.out.println("*************FALHA6: nao pode cancelar pedido fechado"); 
 		}catch (Exception e) {System.out.println("6--->"+e.getMessage());}
 	
-}}
+}
+}

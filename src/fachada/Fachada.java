@@ -366,5 +366,4 @@ public class Fachada {
 	public static List<Produto> listarProdutos(){
 		return restaurante.getProdutos();
 	}
-	
 }

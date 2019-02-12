@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import fachada.Fachada;
+import modelo.Pedido;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -62,6 +66,9 @@ public class ListarPedidoCliente {
 		btnNewButton = new JButton("Listar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for(Pedido p:Fachada.listarPedidos(textField.getText())){
+					textArea.setText(textArea.getText()+ p + "\n");
+				}
 			}
 		});
 		btnNewButton.setBounds(133, 34, 89, 23);

@@ -39,8 +39,10 @@ public class TelaPrincipal {
                     window.frame.setVisible(true);
             		Fachada.cadastrarCliente("98820-0222", "maria", "maria@gmail.com","Rua da Justiça, 12");
             		Fachada.cadastrarCliente("98745-0643", "joao", "joao@gmail.com","Rua dos Tronos, 3");
-            		Produto pizza = Fachada.cadastrarProduto("Pizza", 30);
-            		Produto sushi = Fachada.cadastrarProduto("Sushi", 40);
+            		Fachada.cadastrarProduto("Pizza", 30);
+            		Fachada.cadastrarProduto("Sushi", 40);
+            		Fachada.abrirPedido("98745-0643");
+            		Fachada.abrirPedido("98820-0222");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -61,7 +63,7 @@ public class TelaPrincipal {
     private void initialize() {
         frame = new JFrame();
         frame.setResizable(false);
-        frame.setTitle("Loja Bem Muito Mais");
+        frame.setTitle("RESTAURANTE");
  
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -154,11 +156,11 @@ public class TelaPrincipal {
         });
         mnPrateleira.add(mntmRemoverProduto);
  
-        JMenu mnConsulta = new JMenu("Consulta");
+        JMenu mnConsulta = new JMenu("Pedido");
         mnConsulta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-                TelaConsulta j = new TelaConsulta();
+                ListarPedidos j = new ListarPedidos();
                 j.setVisible(true);
             }
         });
