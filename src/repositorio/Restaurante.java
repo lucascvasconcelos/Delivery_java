@@ -23,4 +23,13 @@ public class Restaurante {
 	public ArrayList<Cliente> getClientes(){
 		return clientes;
 	}
+	
+	public Pedido localizarPedido(int id) {
+		for(Pedido p: pedidos) {
+			if (p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
 }

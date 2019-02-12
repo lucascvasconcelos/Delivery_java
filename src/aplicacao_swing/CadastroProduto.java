@@ -10,9 +10,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CadastroProduto {
+public class CadastroProduto extends JFrame{
 
-	private JFrame frame;
+	JFrame frame;
 	private JLabel lblCadastroDeProdutos;
 	public JLabel lblInformeOPreo;
 	public JLabel lblInformeONome;
@@ -23,18 +23,6 @@ public class CadastroProduto {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroProduto window = new CadastroProduto();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.

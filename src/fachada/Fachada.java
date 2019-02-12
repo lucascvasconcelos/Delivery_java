@@ -1,14 +1,15 @@
 package fachada;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
@@ -17,20 +18,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeMessage.RecipientType;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.mail.internet.MimeMultipart;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import modelo.Cliente;
 import modelo.Combo;
 import modelo.Pedido;
@@ -85,8 +81,7 @@ public class Fachada {
 		if (p != null) {
 			throw new Exception("Produto ja cadastrado!");
 		}
-		idproduto ++;
-		p = new Produto(idproduto, nome, preco);
+		p = new Produto(1, nome, preco);
 		restaurante.getProdutos().add(p);
 		return p;
 	}
@@ -102,7 +97,7 @@ public class Fachada {
 	public static Cliente cadastrarCliente(String telefone, String nome, String email, String endereco) throws Exception{
 		for(Cliente c: Fachada.restaurante.getClientes()) {
 			if (c.getTelefone().equals(telefone))
-				throw new Exception("Cliente já cadastrado com esse numero");
+				throw new Exception("Cliente jï¿½ cadastrado com esse numero");
 		}
 		Cliente c = new Cliente(telefone, nome, email, endereco);
 		restaurante.getClientes().add(c);
@@ -121,8 +116,7 @@ public class Fachada {
 		if(pedido!=null)
 			throw new Exception("Ja existe um pedido aberto para esse telefone!!");
 		
-		idpedido++;
-		pedido = new Pedido(idpedido);
+		pedido = new Pedido(geraId("Pedido"));
 		pedido.setFechado(false);
 		c.getPedidos().add(pedido);
     	restaurante.getPedidos().add(pedido);
@@ -258,7 +252,7 @@ public class Fachada {
 			PdfWriter.getInstance(document, new FileOutputStream("pdf//teste.pdf"));
 			document.setPageSize(PageSize.A6);
 			//Adicionando um titulo ao arquivo
-			document.addSubject("Testando criação de PDF em Java com api Itext");
+			document.addSubject("Testando criaï¿½ï¿½o de PDF em Java com api Itext");
 			//setando o criador do arquivo
 			document.addCreator("iText");
 			//setando o autor do arquivo criado
@@ -266,10 +260,10 @@ public class Fachada {
 			//Abrindo o documento PDF criado
 			document.open();
 			
-			// adicionando um parágrafo ao documento
+			// adicionando um parï¿½grafo ao documento
 			document.add(new Paragraph(ultimoPedido.toString()));
 			document.close();
-			//Se arquivo for criado com sucesso, é exibida uma mensagem de confirmação
+			//Se arquivo for criado com sucesso, ï¿½ exibida uma mensagem de confirmaï¿½ï¿½o
 			System.out.println("PDF criado com sucesso!");
 			//criando a mensagem
 			MimeMessage msg = new MimeMessage(session);
@@ -285,7 +279,7 @@ public class Fachada {
 			//configurando a data de envio,  o assunto e o texto da mensagem
 			msg.setSentDate(new Date());
 			msg.setSubject("Enviando Email com mensagem e anexo");		
-			msg.setSubject("Email com último pedido realizado: " );
+			msg.setSubject("Email com ï¿½ltimo pedido realizado: " );
 			msg.setText("exemplo de email");
 			msg.setHeader("XPriority", "1");
 			
@@ -299,7 +293,7 @@ public class Fachada {
 			attachment0.setContent(htmlMessage,"text/html; charset=UTF-8");
 			//adicionando na multipart
 			multipart.addBodyPart(attachment0);
-			//arquivo que será anexado
+			//arquivo que serï¿½ anexado
 			String pathname = "pdf/teste.pdf";
 			
 			File file = new File(pathname);
@@ -329,21 +323,48 @@ public class Fachada {
 
 	}
 	
-	public static void CriarCombo(String nome, ArrayList<Integer> ids)throws Exception {
+	public static Combo criarCombo(String nome, List<Integer> ids)throws Exception {
 		int idcombo=0;
+		double precoCombo = 0;
 		Produto combo = Fachada.findProduto(nome);
 		if(combo!=null) {
-			throw new Exception("Combo já existe!");
+			throw new Exception("Combo jï¿½ existe!");
 		}
-		Combo c = new Combo(idcombo++,nome,0);
+		List<Produto> produtos = new ArrayList<>();
 		for(int id:ids) {
 			Produto p = Fachada.localizarProduto(id);
-			if(p==null) {
-				throw new Exception("Este id não foi localizado!");
-			}
-			c.adicionarProdutoCombo(p);
-			
+			if(p==null)
+				throw new Exception("Este id nï¿½o foi localizado!");
+			produtos.add(p);
+			precoCombo += p.getpreco();
 		}
+		Combo c = new Combo(geraId("Produto"), nome ,precoCombo);
+		c.getProdutos().addAll(produtos);
 		restaurante.getProdutos().add(c);
+		return c;
 	}
+	
+	public static int geraId (String nomeClasse) {
+		if (nomeClasse.equals("Pedido"))
+			return ++idpedido;
+		else if (nomeClasse.equals("Produto"))
+			return ++idproduto;
+		return 0;
+	}
+	
+	public static void excluirPedido(int id)throws Exception {
+		Pedido p = restaurante.localizarPedido(id);
+		if(p == null)
+			throw new Exception("O pedido nÃ£o existe!");
+		if(p.isFechado()) {
+			restaurante.getPedidos().remove(p);
+			Cliente c = p.getCliente();
+			c.getPedidos().remove(p);
+		}				
+	}
+	
+	public static List<Produto> listarProdutos(){
+		return restaurante.getProdutos();
+	}
+	
 }

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class Produto {
 	private int id;
 	private String nome;
-	private double preco;
+	protected double preco;
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+	
 	
 	//CONSTRUTOR
 	public Produto(int id, String nome, double preco) {
@@ -51,7 +52,7 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + getpreco() + "]";
 	}
 	
 
